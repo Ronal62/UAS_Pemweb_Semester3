@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
-    <title>Admincast bootstrap 4 &amp; angular 5 admin template, Шаблон админки | Login</title>
+    <title>TOKOBUKU &amp;@iamrnldo Login</title>
     <!-- GLOBAL MAINLY STYLES-->
     <link href="./assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="./assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
@@ -20,7 +20,7 @@
 <body class="bg-silver-300">
     <div class="content">
         <div class="brand">
-            <a class="link" href="index.html">AdminCAST</a>
+            <a class="link" href="index.html">Kasir Toko Buku</a>
         </div>
         <form id="login-form" action="aksi_login.php" method="post">
             <h2 class="login-title">Log in</h2>
@@ -36,28 +36,12 @@
                     <input class="form-control" type="password" name="password" placeholder="Password">
                 </div>
             </div>
-            <div class="form-group d-flex justify-content-between">
-                <label class="ui-checkbox ui-checkbox-info">
-                    <input type="checkbox">
-                    <span class="input-span"></span>Remember me</label>
-                <a href="forgot_password.html">Forgot password?</a>
-            </div>
             <div class="form-group">
                 <button class="btn btn-info btn-block" name="simpan" value="simpan" type="submit">Login</button>
             </div>
-            <div class="social-auth-hr">
-                <span>Or login with</span>
-            </div>
-            <div class="text-center social-auth m-b-20">
-                <a class="btn btn-social-icon btn-twitter m-r-5" href="javascript:;"><i class="fa fa-twitter"></i></a>
-                <a class="btn btn-social-icon btn-facebook m-r-5" href="javascript:;"><i class="fa fa-facebook"></i></a>
-                <a class="btn btn-social-icon btn-google m-r-5" href="javascript:;"><i class="fa fa-google-plus"></i></a>
-                <a class="btn btn-social-icon btn-linkedin m-r-5" href="javascript:;"><i class="fa fa-linkedin"></i></a>
-                <a class="btn btn-social-icon btn-vk" href="javascript:;"><i class="fa fa-vk"></i></a>
-            </div>
-            <div class="text-center">Not a member?
-                <a class="color-blue" href="register.html">Create accaunt</a>
-            </div>
+            <!-- <div class="text-center">Don't you have any account ?
+                <a class="color-blue" href="register.html">Register here</a>
+            </div> -->
         </form>
     </div>
     <!-- BEGIN PAGA BACKDROPS-->
