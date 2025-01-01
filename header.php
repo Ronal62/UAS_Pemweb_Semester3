@@ -47,9 +47,9 @@ $nama = $_SESSION['nama'];
             <div class="page-brand">
                 <a class="link" href="index.html">
                     <span class="brand">Toko
-                        <span class="brand-tip">Kitab</span>
+                        <span class="brand-tip">Buku</span>
                     </span>
-                    <span class="brand-mini">TK</span>
+                    <span class="brand-mini">TB</span>
                 </a>
             </div>
             <div class="flexbox flex-1">
