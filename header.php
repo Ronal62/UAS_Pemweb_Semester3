@@ -45,7 +45,7 @@ $nama = $_SESSION['nama'];
         <!-- START HEADER-->
         <header class="header">
             <div class="page-brand">
-                <a class="link" href="index.html">
+                <a class="link" href="media.php">
                     <span class="brand">Toko
                         <span class="brand-tip">Buku</span>
                     </span>
