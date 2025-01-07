@@ -72,13 +72,13 @@ $kd_jual = $data['kd_jual'];
                                 <input class="form-control" type="text" value="<?= $data['jml_jual']; ?>" disabled>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Total</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text"  value="<?= rupiah($data['total']); ?>" disabled>
-                                <input type="hidden" name="total" id="total" value="<?= $data['total']; ?>" onFocus="startCalc();" onBlur="stopCalc();" disabled>
-                            </div>
-                        </div>
+                       <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Total</label>
+    <div class="col-sm-10">
+        <input class="form-control" type="text" value="<?= rupiah($data['total']); ?>" readonly>
+        <input type="hidden" name="total" value="<?= $data['total']; ?>">
+    </div>
+</div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Bayar</label>
                             <div class="col-sm-10">
@@ -204,62 +204,34 @@ $kd_jual = $data['kd_jual'];
 </div>
 
 <?php include 'footer.php'; ?>
-
 <?php
-// Proses Simpan Detail Penjualan
-if (isset($_POST['simpan'])) {
-    $kd_buku = $_POST['kd_buku'];
-    $jumlah = $_POST['jumlah'];
-    $kd_jual = $_POST['kd_jual'];
-
-    $dtbuku = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM buku WHERE kd_buku = '$kd_buku'"));
-    $total = $jumlah * $dtbuku['harga_jual'];
-    $stok_buku = $dtbuku['stok_buku'];
-
-    if ($stok_buku < $jumlah) {
-        echo "
-        <script type='text/javascript'>
-            alert('Maaf Stok buku tidak mencukupi');
-            window.location.href = 'detail_penjualan.php?kd=" . $kd . "';
-        </script>
-        ";
-    } else {
-        $sql_insert = mysqli_query($conn, "INSERT INTO detail_jual VALUES('', '$kd_jual', '$kd_buku', '$jumlah', '$total')");
-
-        $jmljual = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(jumlah) AS jmlBuku, SUM(total) AS totHarga FROM detail_jual WHERE kd_jual = '$kd_jual'"));
-        $jmlBuku = $jmljual['jmlBuku'];
-        $totHarga = $jmljual['totHarga'];
-
-        $sql_update_penjualan = mysqli_query($conn, "UPDATE penjualan SET jml_jual = '$jmlBuku', total = '$totHarga' WHERE kd_jual = '$kd_jual'");
-        $sql_update_buku = mysqli_query($conn, "UPDATE buku SET stok_buku = stok_buku - $jumlah WHERE kd_buku = '$kd_buku'");
-
-        if ($sql_insert && $sql_update_penjualan && $sql_update_buku) {
-            echo "
-        <script type='text/javascript'>
-            window.location.href = 'detail_penjualan.php?kd=" . $kd . "';
-        </script>
-        ";
-        }
-    }
-}
-
 if (isset($_POST['majer'])) {
     $bayar = $_POST['bayar'];
-    $kembali = $_POST['kembali'];
     $totalbayar = $_POST['total'];
+    $kembali = $bayar - $totalbayar;
 
-
-    $sql = mysqli_query($conn, "UPDATE penjualan SET bayar = $bayar, kembali = $kembali  WHERE kd_jual = '$kd_jual' ");
-    $sql2 = mysqli_query($conn, "UPDATE penjualan SET bayar = bayar - $totalbayar WHERE kd_buku = '$kd_buku' ");
-
-
-    if ($sql && $sql2) {
-
-
+    // Pastikan $bayar dan $totalbayar memiliki nilai
+    if (!empty($bayar) && !empty($totalbayar)) {
+        $sql = mysqli_query($conn, "UPDATE penjualan SET bayar = $bayar, kembali = $kembali WHERE kd_jual = '$kd_jual'");
+        
+        if ($sql) {
+            echo "
+            <script type='text/javascript'>
+                alert('Berhasil Dibayar');
+                window.location.href = 'penjualan.php';
+            </script>
+            ";
+        } else {
+            echo "
+            <script type='text/javascript'>
+                alert('Gagal Memproses Pembayaran');
+            </script>
+            ";
+        }
+    } else {
         echo "
         <script type='text/javascript'>
-            alert('Berhasil Di Bayar');
-            window.location.href = 'penjualan.php?kd=" . $kd . "';
+            alert('Isi nominal bayar dengan benar');
         </script>
         ";
     }
